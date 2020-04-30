@@ -163,7 +163,7 @@ async def answer_q9(message: types.Message, state: FSMContext):
     if inmath == 1:
         await message.answer("Вам будут рады на направлении - Инженерная математика")
     if inmath == 0 and promdesign == 0 and promkvantum == 0 and itkvant == 0 and hitech ==0 and airkvant ==0 and biokvantum == 0 and media == 0:
-        await message.answer("Извините, но вам не подходит ни одно из направлений. Но вы можете попробовать любое, там везде рады новичкам!")
+        await message.answer("Неужели ничего не подходит? Не расстраивайся! Ты можешь попробовать любое направление, тут всем рады.")
     await message.answer("Дальше выбор за вами!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_021.webp","rb")
     promdesign = 0
