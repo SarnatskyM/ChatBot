@@ -175,3 +175,8 @@ async def answer_q9(message: types.Message, state: FSMContext):
     hitech = 0
     airkvant = 0
     await state.finish()
+
+@dp.message_handler()
+async def some_message(message: types.Message):
+    await message.answer("Извините, я не понимаю вас. Напише /help и я помогу вам!")
+
