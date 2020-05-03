@@ -6,14 +6,7 @@ from aiogram.dispatcher.filters import Command
 from loader import dp
 from states.test import Test
 
-promdesign =0
-promkvantum=0
-biokvantum=0
-inmath=0
-media=0
-itkvant=0
-hitech=0
-airkvant=0
+answerUser =["Да","да","yes","Yes", "Да ", "да "]
     
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
@@ -64,9 +57,9 @@ async def enter_test(message: types.Message):
 
 @dp.message_handler(state=Test.Q1)
 async def answer_q1(message: types.Message, state: FSMContext):
-    global itkvant
-    if message.text == "Да":
-        itkvant = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer1="Да")
     #promdesign
     await message.answer("Вопрос №2. \n───────────────\n"
                          "Хочешь реализовать проект всей своей жизни?")
@@ -75,9 +68,9 @@ async def answer_q1(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q2)
 async def answer_q2(message: types.Message, state: FSMContext):
-    global promdesign
-    if message.text == "Да":
-        promdesign = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer2="Да")
     #hitech
     await message.answer("Вопрос №3.\n────────────────\n"
                          "Нравится высокотехнологичное оборудование и хочешь научиться с ним работать?")
@@ -85,9 +78,9 @@ async def answer_q2(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q3)
 async def answer_q3(message: types.Message, state: FSMContext):
-    global hitech
-    if message.text == "Да":
-        hitech = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3="Да")
     #promkvant
     await message.answer("Вопрос №4.\n─────────────────\n"
                          "Хочешь сконструировать и запрограммировать своего робота?")
@@ -95,9 +88,9 @@ async def answer_q3(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q4)
 async def answer_q4(message: types.Message, state: FSMContext):
-    global promkvantum
-    if message.text == "Да":
-        promkvantum = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4="Да")
     #biokvant
     await message.answer("Вопрос №5.\n───────────────\n"
                          "Хочешь изучать микробиологии, генетику, клетки и ткани?")
@@ -105,9 +98,9 @@ async def answer_q4(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q5)
 async def answer_q5(message: types.Message, state: FSMContext):
-    global biokvantum
-    if message.text == "Да":
-        biokvantum = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer5="Да")
     #inmath
     await message.answer("Вопрос №6.\n─────────────\n"
                          "Хочешь познать всю сущность математики?")
@@ -115,9 +108,9 @@ async def answer_q5(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q6)
 async def answer_q6(message: types.Message, state: FSMContext):
-    global inmath
-    if message.text == "Да":
-        inmath = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer6="Да")
     #media
     await message.answer("Вопрос №7.\n─────────────────\n"
                          "Увлекаешься обработкой фото и видеомонтажом?")
@@ -125,9 +118,9 @@ async def answer_q6(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q7)
 async def answer_q7(message: types.Message, state: FSMContext):
-    global media
-    if message.text == "Да":
-        media = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer7="Да")
     #airkvant
     await message.answer("Вопрос №8.\n─────────────────\n"
                          "Хочешь собрать и настроить свой летательный аппарат?")
@@ -135,9 +128,9 @@ async def answer_q7(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q8)
 async def answer_q8(message: types.Message, state: FSMContext):
-    global airkvant
-    if message.text == "Да":
-        airkvant = 1
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer8="Да")
     await message.answer("Спасибо за ваши ответы!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
     await message.answer("Готовы получить ответ?")
@@ -145,35 +138,30 @@ async def answer_q8(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Test.Q9)
 async def answer_q9(message: types.Message, state: FSMContext):
-    global promdesign, promkvantum, itkvant, hitech, airkvant, biokvantum, media, inmath
-    if promdesign == 1:
-        await message.answer("Вам подходит направление - ПромДизайн")
-    if promkvantum == 1:
-        await message.answer("Вам подходит направление - ПромКвантум")
-    if itkvant == 1:
-        await message.answer("Вам отлично подходит - АйтиКвантум")
-    if hitech == 1:
-        await message.answer("Вас заинтересует направление - Хайтек")
-    if airkvant == 1:
-        await message.answer("Вам подходит направление - АэроКвантум")
-    if biokvantum == 1:
-        await message.answer("Вам подходит направление - БиоКвантум")
-    if media == 1:
-        await message.answer("Вам подходит направление - МедиаКвант")
-    if inmath == 1:
-        await message.answer("Вам будут рады на направлении - Инженерная математика")
-    if inmath == 0 and promdesign == 0 and promkvantum == 0 and itkvant == 0 and hitech ==0 and airkvant ==0 and biokvantum == 0 and media == 0:
-        await message.answer("Неужели ничего не подходит? Не расстраивайся! Ты можешь попробовать любое направление, тут всем рады.")
+    data = await state.get_data()
+    itkvant = data.get("answer1")
+    promdesign = data.get("answer2")
+    hitech = data.get("answer3")
+    promkvantum = data.get("answer4")
+    biokvantum = data.get("answer5")
+    inmath = data.get("answer6")
+    media = data.get("answer7")
+    airkvant = data.get("answer8")
+    d = {
+     "Вам подходит направление - ПромДизайн" : promdesign,
+     "Вам подходит направление - ПромРобоКвантум" : promkvantum,
+     "Вам отлично подходит - АйтиКвантум" : itkvant,
+     "Вас заинтересует направление - Хайтек" : hitech,
+     "Вам подходит направление - АэроКвантум" : airkvant,
+     "Вам подходит направление - БиоКвантум" : biokvantum,
+     "Вам подходит направление - МедиаКвант" : media,
+     "Вам будут рады на направлении - Инженерная математика" : inmath
+    }
+    for key , val in d.items():
+        if val == "Да":
+            await message.answer(key)
     await message.answer("Дальше выбор за вами!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_021.webp","rb")
-    promdesign = 0
-    promkvantum = 0
-    biokvantum = 0
-    inmath = 0
-    media = 0
-    itkvant = 0
-    hitech = 0
-    airkvant = 0
     await state.finish()
 
 @dp.message_handler()
