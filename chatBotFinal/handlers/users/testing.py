@@ -82,16 +82,19 @@ async def enter_test(message: types.Message):
         "Интересно, как делают интервью на каналах ВДудь и Ещёнепознер?", reply_markup=answerButtons)
         await Media.Q1.set()
     if message.text == "IT-Квант":
-        await message.answer("Хочешь попробовать себя разработке игр, приложений и сайтов?",reply_markup=answerButtons)
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Хочешь попробовать себя разработке игр, приложений и сайтов?",reply_markup=answerButtons)
         await Itkvant.I1.set()
     if message.text == "Хайтек":
-        await message.answer("Хотели бы научится работать с 3D принтером, станком лазерной резки?", reply_markup=answerButtons)
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Хотели бы научится работать с 3D принтером, станком лазерной резки?", reply_markup=answerButtons)
         await Hitech.H1.set()
     if message.text == "Аэроквантум":
         await message.answer("3")
         await Airo.A1.set()
     if message.text == "Промышленный дизайн":
-        await message.answer("Тебе нравится рисовать ?", reply_markup=answerButtons)
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Тебе нравится рисовать ?", reply_markup=answerButtons)
         await Des.D1.set()
     if message.text == "ПромРобоКвант":
         await message.answer("5")
@@ -100,7 +103,8 @@ async def enter_test(message: types.Message):
         await message.answer("6")
         await Bio.B1.set()
     if message.text == "Инженерная математика":
-        await message.answer("Хотелось бы вам перестать думать шаблонами и научится здравому анализу?", reply_markup=answerButtonsTestingForStasQuest)
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Хотелось бы вам перестать думать шаблонами и научится здравому анализу?", reply_markup=answerButtonsTestingForStasQuest)
         await Math.M1.set()
 
 @dp.message_handler(state=Media.Q1)
@@ -445,7 +449,7 @@ async def answer_i1(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer1=1)
     await message.answer("Вопрос №2. \n───────────────\n"
-                         "")
+                         "знаете, что такое C++ или Unity?")
     await Itkvant.next()
 
 
@@ -455,7 +459,7 @@ async def answer_i2(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer2=1)
     await message.answer("Вопрос №3.\n────────────────\n"
-                         "")
+                         "Обладаете ли вы базовыми навыками программирования?")
     await Itkvant.next()
 
 @dp.message_handler(state=Itkvant.I3)
@@ -464,7 +468,7 @@ async def answer_i3(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer3=1)
     await message.answer("Вопрос №4.\n─────────────────\n"
-                         "")
+                         "Интересует разработка компьтерных игр?")
     await Itkvant.next()
 
 @dp.message_handler(state=Itkvant.I4)
@@ -474,7 +478,7 @@ async def answer_i4(message: types.Message, state: FSMContext):
         await state.update_data(answer4=1)
     await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
     await message.answer("Вопрос №5.\n───────────────\n"
-                         "Что такое датчики и для чего они используются?\n\n\n1.детекторы, которые имеют возможность измерять некоторые физические качества, такие как давление или свет.\n\n2.Моторы, которые имеют возможность приводить некоторые детали в движения, такие как колеса или свет.\n\n3.И то и то\n\n4.Я не знаю", reply_markup=answerButtonsTesting)
+                         "Что такое датчики и для чего они используются?\n\n1.Детекторы, которые имеют возможность измерять некоторые физические качества, такие как давление или свет.\n\n2.Моторы, которые имеют возможность приводить некоторые детали в движения, такие как колеса или свет.\n\n3.И то и то\n\n4.Я не знаю", reply_markup=answerButtonsTestingForStasQuestHard)
     await Itkvant.next()
 
 @dp.message_handler(state=Itkvant.I5)
@@ -482,7 +486,7 @@ async def answer_i5(message: types.Message, state: FSMContext):
     if message.text == "1 вариант":
         await state.update_data(answer5=2)
     await message.answer("Вопрос №6.\n─────────────\n"
-                         "Что такое переменная, тип переменной и область видимости переменной?\n\n\n1.Да\n\n2.Ну почти\n\n3.Что то слышал\n\n4.Нет")
+                         "Что такое переменная, тип переменной и область видимости переменной?\n\n1.Да\n\n2.Ну почти\n\n3.Что то слышал\n\n4.Нет")
     await Itkvant.next()
 
 @dp.message_handler(state=Itkvant.I6)
@@ -503,11 +507,11 @@ async def answer_i7(message: types.Message, state: FSMContext):
     if message.text == "3 вариант":
         await state.update_data(answer7=2)
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
-    await message.answer("Готовы получить ответ?")
+    await message.answer("Готовы получить ответ?",reply_markup=answerButtonsAfterTest)
     await Itkvant.next()
 
-@dp.message_handler(state=Itkvant.I9)
-async def answer_i9(message: types.Message, state: FSMContext):
+@dp.message_handler(state=Itkvant.I8)
+async def answer_i8(message: types.Message, state: FSMContext):
     k = 0  
     data = await state.get_data()
     answerM1 = data.get("answer1")
@@ -523,7 +527,7 @@ async def answer_i9(message: types.Message, state: FSMContext):
             k += 1
         if item == 2:
             k += 2
-    await message.answer("Вам подходит направление IT-Квантум на - {0}% ".format(100*k//10))
+    await message.answer("Вам подходит направление IT-Квантум на - {0}% ".format(100*k//10), reply_markup=ReplyKeyboardRemove())
     await message.answer("Многообещающе!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_016.webp","rb")
     await state.finish()

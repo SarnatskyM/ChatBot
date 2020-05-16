@@ -24,7 +24,6 @@ class Itkvant(StatesGroup):
     I6 = State()
     I7 = State()
     I8 = State()
-    I9 = State()
 
 class Hitech(StatesGroup):
     H1 = State()
