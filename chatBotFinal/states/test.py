@@ -34,7 +34,6 @@ class Hitech(StatesGroup):
     H6 = State()
     H7 = State()
     H8 = State()
-    H9 = State()
 
 class Airo(StatesGroup):
     A1 = State()

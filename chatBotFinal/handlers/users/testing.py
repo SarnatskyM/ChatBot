@@ -532,5 +532,102 @@ async def answer_i8(message: types.Message, state: FSMContext):
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_016.webp","rb")
     await state.finish()
 
+@dp.message_handler(state=Hitech.H1)
+async def answer_h1(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer1=1)
+    await message.answer("Вопрос №2. \n───────────────\n"
+                         "Не боитесь ли \"работать руками\" по дому?  Можете забить гвоздь в стену, починить радиоприёмник , и т. п")
+    await Hitech.next()
+
+
+@dp.message_handler(state=Hitech.H2)
+async def answer_h2(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer2=1)
+    await message.answer("Вопрос №3.\n────────────────\n"
+                         "Модно быть уже сейчас увлекаетесь обработкой разнообразных материалов : дерева, металла и других")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H3)
+async def answer_h3(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3=1)
+    await message.answer("Вопрос №4.\n─────────────────\n"
+                         "Согласно ли беспрекословно соблюдать технику безопасности и ложить вещи на свои места ( если нет, вас могут отчислить из Квантума)")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H4)
+async def answer_h4(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4=1)
+    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Вопрос №5.\n───────────────\n"
+                         "Обладаете ли вы навыками изобретательства и инженерии\n\n1.Даа!! Постоянно что-то придумаю и мастерю\n\n2.Нууу даа, немного\n\n3.Не мастерю, но идеи есть\n\n4.Неа", reply_markup = answerButtonsTestingForStasQuestHard)
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H5)
+async def answer_h5(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer5=3)
+    if message.text == "2 вариант":
+        await state.update_data(answer5=2)
+    if message.text == "3 вариант":
+        await state.update_data(answer5=1)
+    else:
+        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
+    #inmath
+    await message.answer("Вопрос №6.\n─────────────\n"
+                         "Умеешь ориентироваться в информационном пространстве и использовать техническую лит-ру для поиска сложных решений?\n\n1.Могу, умею, практикую\n\n2.Могу погуглить\n\n3.Возможно\n\n4.Наставник ведь всё знает")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H6)
+async def answer_h6(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer6=3)
+    if message.text == "2 вариант":
+        await state.update_data(answer6=2)
+    if message.text == "3 вариант":
+        await state.update_data(answer6=1)
+    await message.answer("Вопрос №7.\n─────────────────\n"
+                         "Какие типы фрез для фрезерного станка вам известны?\n\n1.Горизантальные, вертикальные\n\n2.Цилиндрические, дисковые\n\n3.Прямые, кривые",reply_markup= answerButtonsTesting)
+    await Hitech.next()
+
+
+@dp.message_handler(state=Hitech.H7)
+async def answer_h7(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer8=3)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H8)
+async def answer_h8(message: types.Message, state: FSMContext):
+    k = 0  
+    data = await state.get_data()
+    answerM1 = data.get("answer1")
+    answerM2 = data.get("answer2")
+    answerM3 = data.get("answer3")
+    answerM4= data.get("answer4")
+    answerM5 = data.get("answer5")
+    answerM6 = data.get("answer6")
+    answerM7 = data.get("answer7")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7]
+    for item in ans:
+        if item == 1:
+            k += 1
+        if item == 2:
+            k += 2
+        if item == 3:
+            k += 3
+    await message.answer("Вам подходит направление Хайтек на - {0}% ".format(100*k//13), reply_markup=ReplyKeyboardRemove())
+    await message.answer("Вы уже закончили??")
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_027.webp","rb")
+    await state.finish()
     
 
