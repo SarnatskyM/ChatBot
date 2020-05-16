@@ -82,7 +82,7 @@ async def enter_test(message: types.Message):
         "Интересно, как делают интервью на каналах ВДудь и Ещёнепознер?", reply_markup=answerButtons)
         await Media.Q1.set()
     if message.text == "IT-Квант":
-        await message.answer("1")
+        await message.answer("Хочешь попробовать себя разработке игр, приложений и сайтов?",reply_markup=answerButtons)
         await Itkvant.I1.set()
     if message.text == "Хайтек":
         await message.answer("Хотели бы научится работать с 3D принтером, станком лазерной резки?", reply_markup=answerButtons)
@@ -136,7 +136,7 @@ async def answer_q4(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
         await state.update_data(answer4=1)
-    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
     await message.answer("Вопрос №5.\n───────────────\n"
                          "Тебе предложили снять видеообзор на любимую игру. Для тебя это\n\n\n1.Круто! Это может стать началом моего блога об играх.\n\n2.Будет сложновато придумать, о чём рассказывать, но интересно попробовать.\n\n3.Неинтересно. Лучше потрачу это время на то, чтобы научиться делать игры самому!", reply_markup=answerButtonsTesting)
     await Media.next()
@@ -264,7 +264,7 @@ async def answer_m3(message: types.Message, state: FSMContext):
 async def answer_m4(message: types.Message, state: FSMContext):
     if message.text == "Просто стараюсь из понять.":
         await state.update_data(answer4=10)
-    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
     await message.answer("Вопрос №5.\n───────────────\n"
                          "Знаешь ли ты?\n\n1.Я на седьмом этаже. Это как шестой, но на один повыше. Иногда залезаю на крышу.\n\n2.В прямоугольном треугольнике квадрат длины гипотенузы, равен сумме квадратов длин катетов.\n\n3.Вдоль ночных дорог шла, босиком не жалея ног. Сердце его теперь в твоих руках. Не потеряй его и не сломай.\n\n4.В прямоугольном треугольнике квадрат катета, равен сумме квадратов длин гипотенуз.", reply_markup=answerButtonsTestingForStasQuestHard)
     await Math.next()
@@ -403,7 +403,7 @@ async def answer_d4(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
         await state.update_data(answer4=1)
-    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
     await message.answer("Вопрос №5.\n───────────────\n"
                          "Тебе подарили гаджет нового поколения. Что ты сделаешь в первую очередь", reply_markup=answerButtonsPromDes)
     await Des.next()
@@ -437,6 +437,95 @@ async def answer_d6(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление Промышленный дизайн на - {0}% ".format(100*k//6),reply_markup=ReplyKeyboardRemove())
     await message.answer("А вы быстро!!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_034.webp","rb")
+    await state.finish()
+
+@dp.message_handler(state=Itkvant.I1)
+async def answer_i1(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer1=1)
+    await message.answer("Вопрос №2. \n───────────────\n"
+                         "")
+    await Itkvant.next()
+
+
+@dp.message_handler(state=Itkvant.I2)
+async def answer_i2(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer2=1)
+    await message.answer("Вопрос №3.\n────────────────\n"
+                         "")
+    await Itkvant.next()
+
+@dp.message_handler(state=Itkvant.I3)
+async def answer_i3(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3=1)
+    await message.answer("Вопрос №4.\n─────────────────\n"
+                         "")
+    await Itkvant.next()
+
+@dp.message_handler(state=Itkvant.I4)
+async def answer_i4(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4=1)
+    await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
+    await message.answer("Вопрос №5.\n───────────────\n"
+                         "Что такое датчики и для чего они используются?\n\n\n1.детекторы, которые имеют возможность измерять некоторые физические качества, такие как давление или свет.\n\n2.Моторы, которые имеют возможность приводить некоторые детали в движения, такие как колеса или свет.\n\n3.И то и то\n\n4.Я не знаю", reply_markup=answerButtonsTesting)
+    await Itkvant.next()
+
+@dp.message_handler(state=Itkvant.I5)
+async def answer_i5(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer5=2)
+    await message.answer("Вопрос №6.\n─────────────\n"
+                         "Что такое переменная, тип переменной и область видимости переменной?\n\n\n1.Да\n\n2.Ну почти\n\n3.Что то слышал\n\n4.Нет")
+    await Itkvant.next()
+
+@dp.message_handler(state=Itkvant.I6)
+async def answer_i6(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer6=2)
+    if message.text == "2 вариант":
+        await state.update_data(answer6=1)
+    await message.answer("Вопрос №7.\n─────────────────\n"
+                         "Какие личностые требования должны быть к ученику?\n\n1.Навыки командной работы\n\n2.постоять за себя\n\n3.Генерировать различные идеи\n\n4.Чувство юмора")
+    await Itkvant.next()
+
+
+@dp.message_handler(state=Itkvant.I7)
+async def answer_i7(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer7=2)
+    if message.text == "3 вариант":
+        await state.update_data(answer7=2)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?")
+    await Itkvant.next()
+
+@dp.message_handler(state=Itkvant.I9)
+async def answer_i9(message: types.Message, state: FSMContext):
+    k = 0  
+    data = await state.get_data()
+    answerM1 = data.get("answer1")
+    answerM2 = data.get("answer2")
+    answerM3 = data.get("answer3")
+    answerM4= data.get("answer4")
+    answerM5 = data.get("answer5")
+    answerM6 = data.get("answer6")
+    answerM7 = data.get("answer7")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7]
+    for item in ans:
+        if item == 1:
+            k += 1
+        if item == 2:
+            k += 2
+    await message.answer("Вам подходит направление IT-Квантум на - {0}% ".format(100*k//10))
+    await message.answer("Многообещающе!")
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_016.webp","rb")
     await state.finish()
 
     
