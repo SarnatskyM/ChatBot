@@ -3,7 +3,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command, Text
 from aiogram.types import Message, ReplyKeyboardRemove
-from keyboards.default import menu, direction_menu, direction_menu2, answerButtons, answerButtonsTesting, answerButtonsAfterTest, answerButtonsTestingForStasQuestHard,answerButtonsTestingForStasQuest, answerButtonsTestingForStasQuest2, answerButtonsSoHardQuest, answerButtonsPromDes
+from keyboards.default import menu, direction_menu, direction_menu2, answerButtons, answerButtonsTesting, answerButtonsAfterTest, answerButtonsTestingForStasQuestHard,answerButtonsTestingForStasQuest, answerButtonsTestingForStasQuest2, answerButtonsSoHardQuest, answerButtonsPromDes, answerButtonsAiro1, answerButtonsAiro3, answerButtonsAiroJoJo, answerButtonsAiro5
 from .info import *
 from loader import dp
 from states.test import Media,Itkvant,Hitech,Airo,Robo,Bio,Math,Des
@@ -46,18 +46,18 @@ async def process_directions_commnad(message: types.Message):
 			''' , reply_markup=direction_menu2
 		)
 
-@dp.message_handler(Text(equals=["•IT-Квантум","•Хайтек","•Аэроквантум","•Промышленный дизайн","•ПромРобоКвант","•Биоквантум","•Инженерная математика","•Медиа","•Назад"]))
+@dp.message_handler(Text(equals=["-IT-Квантум","-Хайтек","-Аэроквантум","-Промышленный дизайн","-ПромРобоКвант","-Биоквантум","-Инженерная математика","-Медиа","Назад"]))
 async def get_infoD(message: Message):
     direct = {
-     info_itkvant : "•IT-Квантум",
-     info_hitech : "•Хайтек",
-     info_airkvant : "•Аэроквантум",
-     info_promdesign : "•Промышленный дизайн",
-     info_promrobokvant : "•ПромРобоКвант",
-     info_biokvant : "•Биоквантум",
-     info_inmath : "•Инженерная математика",
-     info_media : "•Медиа",
-     info_back : "•Назад",
+     info_itkvant : "-IT-Квантум",
+     info_hitech : "-Хайтек",
+     info_airkvant : "-Аэроквантум",
+     info_promdesign : "-Промышленный дизайн",
+     info_promrobokvant : "-ПромРобоКвант",
+     info_biokvant : "-Биоквантум",
+     info_inmath : "-Инженерная математика",
+     info_media : "-Медиа",
+     info_back : "Назад",
     }
     for key , val in direct.items():
         if message.text == val:
@@ -90,14 +90,16 @@ async def enter_test(message: types.Message):
         "Хотели бы научится работать с 3D принтером, станком лазерной резки?", reply_markup=answerButtons)
         await Hitech.H1.set()
     if message.text == "Аэроквантум":
-        await message.answer("3")
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Знаешь почему летает самолет?", reply_markup= answerButtonsAiro1)
         await Airo.A1.set()
     if message.text == "Промышленный дизайн":
         await message.answer("Вопрос №1. \n───────────────\n"
         "Тебе нравится рисовать ?", reply_markup=answerButtons)
         await Des.D1.set()
     if message.text == "ПромРобоКвант":
-        await message.answer("5")
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Пробовал ли ты уже программировать?", reply_markup= answerButtons)
         await Robo.R1.set()
     if message.text == "Биоквантум":
         await message.answer("6")
@@ -232,6 +234,7 @@ async def answer_q0(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление Медиа на - {0}% ".format(100*k//12), reply_markup=ReplyKeyboardRemove())
     await message.answer("Удачи вам!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_031.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 
 @dp.message_handler(state=Math.M1)
@@ -372,6 +375,7 @@ async def answer_m12(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление Инженерная математика на - {0}% ".format(100*k//80), reply_markup=ReplyKeyboardRemove())
     await message.answer("Это было тяжело, но ты справился!!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_046.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 
 @dp.message_handler(state=Des.D1)
@@ -407,24 +411,33 @@ async def answer_d4(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
         await state.update_data(answer4=1)
+    await message.answer("Вопрос №5.\n─────────────────\n"
+                         "Приходят ли тебе в голову идеи по разработке каких либо новых устройств, которые делают жизнь людей лучше ?")
+    await Des.next()
+
+@dp.message_handler(state=Des.D5)
+async def answer_d5(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer5=1)
     await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
-    await message.answer("Вопрос №5.\n───────────────\n"
+    await message.answer("Вопрос №6.\n───────────────\n"
                          "Тебе подарили гаджет нового поколения. Что ты сделаешь в первую очередь", reply_markup=answerButtonsPromDes)
     await Des.next()
 
 
-@dp.message_handler(state=Des.D5)
-async def answer_d5(message: types.Message, state: FSMContext):
+@dp.message_handler(state=Des.D6)
+async def answer_d6(message: types.Message, state: FSMContext):
     if message.text == "2.В первую очередь обращу внимание на дизайн гаджета , экраны и интерфейс, цветовую гамму меню, удобство, эргономику":
-        await state.update_data(answer5=2)
+        await state.update_data(answer6=2)
     if message.text == "1.Буду смотреть техническую начинку( емкость батареи, оперативку, функции и до.)":
-        await state.update_data(answer5=1)
+        await state.update_data(answer6=1)
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
     await message.answer("Готовы получить ответ?", reply_markup=answerButtonsAfterTest)
     await Des.next()
 
-@dp.message_handler(state=Des.D6)
-async def answer_d6(message: types.Message, state: FSMContext):
+@dp.message_handler(state=Des.D7)
+async def answer_d7(message: types.Message, state: FSMContext):
     k = 0  
     data = await state.get_data()
     answerM1 = data.get("answer1")
@@ -432,7 +445,8 @@ async def answer_d6(message: types.Message, state: FSMContext):
     answerM3 = data.get("answer3")
     answerM4= data.get("answer4")
     answerM5 = data.get("answer5")
-    ans=[answerM1, answerM2, answerM3, answerM4,answerM5]
+    answerM6 = data.get("answer6")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5, answerM6]
     for item in ans:
         if item == 1:
             k += 1
@@ -441,6 +455,7 @@ async def answer_d6(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление Промышленный дизайн на - {0}% ".format(100*k//6),reply_markup=ReplyKeyboardRemove())
     await message.answer("А вы быстро!!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_034.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 
 @dp.message_handler(state=Itkvant.I1)
@@ -530,6 +545,7 @@ async def answer_i8(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление IT-Квантум на - {0}% ".format(100*k//10), reply_markup=ReplyKeyboardRemove())
     await message.answer("Многообещающе!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_016.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 
 @dp.message_handler(state=Hitech.H1)
@@ -628,6 +644,338 @@ async def answer_h8(message: types.Message, state: FSMContext):
     await message.answer("Вам подходит направление Хайтек на - {0}% ".format(100*k//13), reply_markup=ReplyKeyboardRemove())
     await message.answer("Вы уже закончили??")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_027.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
+    await state.finish()
+
+@dp.message_handler(state=Robo.R1)
+async def answer_r1(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer1=1)
+    await message.answer("Вопрос №2. \n───────────────\n"
+                         "Интересно ли было разобрать робота и узнать что внутри?")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R2)
+async def answer_r2(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer2=1)
+    await message.answer("Вопрос №3. \n───────────────\n"
+                         "Ты уже пробовал собирать робота?")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R3)
+async def answer_r3(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3=1)
+    await message.answer("Вопрос №4. \n───────────────\n"
+                         "Боишься востания роботов?")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R4)
+async def answer_r4(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4=1)
+    await message.answer("Вопрос №5. \n───────────────\n"
+                         "Хотел бы работать с Илоном Маском?")
+    await Robo.next()
+
+
+@dp.message_handler(state=Robo.R5)
+async def answer_r5(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer5=1)
+    await message.answer("Вопрос №6.\n────────────────\n"
+                         "Хотел бы сделать робота который выполняет скучную роботенку? ")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R6)
+async def answer_r6(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer6=1)
+    await message.answer("Вопрос №7.\n─────────────────\n"
+                         "Слышали ли ты про искуственный интелект?")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R7)
+async def answer_r7(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer7=1)
+    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Вопрос №8.\n───────────────\n"
+                         "Часто не бывает возможности во время кормить питомца. Что ты сделаешь?\n\n1.Сделаю автоматизированную кормушку и мой питомец всегда будет сыт во время\n\n2.Посмотрю в интернете как можно решить данную проблему, и последую совету\n\n3.Попрошу кого-нибудь, чтобы не забывали кормить", reply_markup = answerButtonsSoHardQuest)
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R8)
+async def answer_r8(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer8=2)
+    if message.text == "2 вариант":
+        await state.update_data(answer8=1)
+    else:
+        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
+    #inmath
+    await message.answer("Вопрос №9.\n─────────────\n"
+                         "Тебе предлжили учавствовать в гонке роботов\n\n1.Лучше я пойду нарисую робота\n\n2.Сложнова то наверное. Но я попробую\n\n3.СУПЕР! Сделаю своего робота и поучавствую в соревнованиях")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R9)
+async def answer_r9(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer9=1)
+    if message.text == "3 вариант":
+        await state.update_data(answer9=2)
+    await message.answer("Вопрос №10.\n─────────────────\n"
+                         "Твои друзья собирают робота и предложили помочь. Что ты сделаешь?\n\n1.Буду собирать корпус и механизмы\n\n2.Буду программировать и паять\n\n3.Придумаю красивый дизайн")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R10)
+async def answer_r10(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer10=1)
+    if message.text == "2 вариант":
+        await state.update_data(answer10=2)
+    await message.answer("Вопрос №11.\n─────────────────\n"
+                         "Ты сделал робота но он странно себя ведет и сходит с ума. Что ты сделаешь?\n\n1.Попробую найти ошибку в программе и проверю правильность подключения датчиков\n\n2.Выключу. Подожду. И снова включу.\n\n3.Пойду соберу другого робота")
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R11)
+async def answer_r11(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer11=2)
+    if message.text == "2 вариант":
+        await state.update_data(answer11=1)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    await Robo.next()
+
+@dp.message_handler(state=Robo.R12)
+async def answer_r12(message: types.Message, state: FSMContext):
+    k = 0  
+    data = await state.get_data()
+    answerM1 = data.get("answer1")
+    answerM2 = data.get("answer2")
+    answerM3 = data.get("answer3")
+    answerM4= data.get("answer4")
+    answerM5 = data.get("answer5")
+    answerM6 = data.get("answer6")
+    answerM7 = data.get("answer7")
+    answerM8 = data.get("answer8")
+    answerM9 = data.get("answer9")
+    answerM10 = data.get("answer10")
+    answerM11 = data.get("answer11")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7,answerM8,answerM9, answerM10,answerM11]
+    for item in ans:
+        if item == 1:
+            k += 1
+        if item == 2:
+            k += 2
+    await message.answer("Вам подходит направление ПромРобоКвантум на - {0}% ".format(100*k//15), reply_markup= ReplyKeyboardRemove())
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_047.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
     
+
+@dp.message_handler(state=Airo.A1)
+async def answer_a0(message: types.Message, state: FSMContext):
+    if message.text == "3.Из-за подъемной силы, на которую влияют тяга и форма крыла":
+        await state.update_data(answer1=3)
+    if message.text == "1.Из-за формы подъемной силы":
+        await state.update_data(answer1=1)
+    await message.answer("Вопрос №2. \n───────────────\n"
+                         "Знаешь разницу между геликоптером(вертолетом), конвертопланом и квадрокоптером?", reply_markup = answerButtonsTestingForStasQuest)
+    await Airo.next()
+
+
+@dp.message_handler(state=Airo.A2)
+async def answer_a2(message: types.Message, state: FSMContext):
+    global answerUserNo
+    if message.text in answerUserNo:
+        await state.update_data(answer2=3)
+    if message.text == "50/50":
+        await state.update_data(answer2=1)
+    await message.answer("Вопрос №3.\n────────────────\n"
+                         "Ты хочешь найти Себе крутую команду единомышленников и друзей?", reply_markup= answerButtonsAiro3)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A3)
+async def answer_a3(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3=3)
+    if message.text == "Я люблю работать один":
+        await state.update_data(answer3= 1)
+    await message.answer("Вопрос №4.\n─────────────────\n"
+                         "Любишь ли ты возится с железками и проводами?", reply_markup = answerButtons)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A4)
+async def answer_a4(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4=3)
+    if message.text == "Я люблю работать один":
+        await state.update_data(answer4= 1)
+    await message.answer("Вопрос №5.\n─────────────────\n"
+                         "Смотришь канал AlexGyver?", reply_markup = answerButtonsAiro5)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A5)
+async def answer_a5(message: types.Message, state: FSMContext):
+    if message.text == "Да":
+        await state.update_data(answer5=3)
+    if message.text == "Да, я на него давно подписан!":
+        await state.update_data(answer5= 3)
+    await message.answer("Вопрос №6.\n─────────────────\n"
+                         "Хочешь залететь туда, куда не заберется ни один робот?\n\n1.Да, куда-нибудь в горы или за густой лес\n\n2.Ну не знаю, а когда отпустят домой?\n\n3.Хочу дрон, который отнесет робота, куда я захочу", reply_markup = answerButtonsTesting)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A6)
+async def answer_a6(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer6=1)
+    if message.text == "2 вариант":
+        await state.update_data(answer6=3)
+    await message.answer("Вопрос №7.\n─────────────────\n"
+                         "Что выберешь?\n\n1.Собрать крутой коптер, который решит чью-то проблему\n\n2.Я хочу просто полетать на дроне\n\n3.Я вообще не сам выбирал, меня родителм отдали")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A7)
+async def answer_a7(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer7=3)
+    if message.text == "3 вариант":
+        await state.update_data(answer7=1)
+    await message.answer("Вопрос №8.\n─────────────────\n"
+                         "Приходилось ли тебе раньше паять?", reply_markup = answerButtons)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A8)
+async def answer_a8(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer8=3)
+    await message.answer("Вопрос №9.\n─────────────────\n"
+                         "Пробовал ли ты уже программировать?")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A9)
+async def answer_a9(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer9=3)
+    await message.answer("Вопрос №10.\n─────────────────\n"
+                         "Хочешь научиться программированию, и даже программировать дронов и роботов?")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A10)
+async def answer_a10(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer10=1)
+    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Вопрос №11.\n───────────────\n"
+                         "Какое слово подходит под определение? Угловые движения летательного аппарата относительно вертикальной оси , а также небольшие изменения курса вправо или влево.\n\n1.Рыскание\n\n2.Крен\n\n3.Щеночки!", reply_markup = answerButtonsTesting)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A11)
+async def answer_a11(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer11=5)
+    else:
+        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
+    #inmath
+    await message.answer("Вопрос №12.\n─────────────\n"
+                         "JoJo?", reply_markup = answerButtonsAiroJoJo)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A12)
+async def answer_a12(message: types.Message, state: FSMContext):
+    if message.text == "ORA ORA ORA!!!!":
+        await state.update_data(answer12=3)
+    if message.text == "Какёин":
+        await state.update_data(answer12=3)
+    if message.text == "Чиво?":
+        await state.update_data(answer12=1)
+    await message.answer("Вопрос №13.\n─────────────────\n"
+                         "Ты закончил работу и пора идти домой, твои действия?\n\n1.Попрощаюсь и пойду помой. Дом, милый дом!\n\n2.Уберу все по местам и приведу рабочее пространство в порядок, попрощаюсь. Пойду домой!\n\n3.Пойду домой! Ура!", reply_markup= answerButtonsTesting)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A13)
+async def answer_a13(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer13=3)
+    await message.answer("Вопрос №14.\n─────────────────\n"
+                         "Твой дрон странно себя ведет, после того как ты его собрал. Что будешь делать?\n\n1.Попробую найти ошибку в программе и проверю правильность подключения датчиков.\n\n2.Выключу. Подожду. И снова включу.\n\n3.Пойду домой, все равно не вышло")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A14)
+async def answer_a14(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer14=3)
+    await message.answer("Вопрос №15.\n─────────────────\n"
+                         "Твои друзья собирают робота и предложили помочь. Что ты сделаешь?\n\n1.Буду программировать и паять\n\n2.Буду собирать корпус и механизмы\n\n3.Узнаю в какая помощь им требуется, а после начну заниматься ей.")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A15)
+async def answer_a15(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer15=1)
+    if message.text == "3 вариант":
+        await state.update_data(answer15=3)
+    if message.text == "1 вариант":
+        await state.update_data(answer15=1)
+    await message.answer("Вопрос №16.\n─────────────────\n"
+                         "Тебе нужно, чтобы твой дрон завис на одной позиции, что ты сделаешь для этого?\n\n1.Привяжу его веревочкой, так он точно не сбежит\n\n2.Установлю и запрограммирую GPS датчики, чтобы по ним дрон определял свое положение и корректировал его.\n\n3.Поставлю на этой позиции метки, установлю на дрон камеру, по которой дрон будет считывать метки и корректировать свое положение относительно них.")
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A16)
+async def answer_a16(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer16=5)
+    if message.text == "3 вариант":
+        await state.update_data(answer16=3)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    await Airo.next()
+
+@dp.message_handler(state=Airo.A17)
+async def answer_a17(message: types.Message, state: FSMContext):
+    k = 0  
+    data = await state.get_data()
+    answerM1 = data.get("answer1")
+    answerM2 = data.get("answer2")
+    answerM3 = data.get("answer3")
+    answerM4= data.get("answer4")
+    answerM5 = data.get("answer5")
+    answerM6 = data.get("answer6")
+    answerM7 = data.get("answer7")
+    answerM8 = data.get("answer8")
+    answerM9 = data.get("answer9")
+    answerM10 = data.get("answer10")
+    answerM11 = data.get("answer11")
+    answerM12 = data.get("answer12")
+    answerM13 = data.get("answer13")
+    answerM14 = data.get("answer14")
+    answerM15 = data.get("answer15")
+    answerM16 = data.get("answer16")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7,answerM8,answerM9,answerM10, answerM11, answerM12, answerM13, answerM14,answerM15,answerM16]
+    for item in ans:
+        if item == 1:
+            k += 1
+        if item == 2:
+            k += 2
+        if item == 3:
+            k += 3
+        if item == 5:
+            k += 5
+    await message.answer("Вам подходит направление АэроКвантум на - {0}% ".format(100*k//49), reply_markup=ReplyKeyboardRemove())
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_006.webp","rb")
+    await state.finish()
 

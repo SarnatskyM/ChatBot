@@ -45,6 +45,14 @@ class Airo(StatesGroup):
     A7 = State()
     A8 = State()
     A9 = State()
+    A10 = State()
+    A11 = State()
+    A12 = State()
+    A13 = State()
+    A14 = State()
+    A15 = State()
+    A16 = State()
+    A17 = State()
 
 class Des(StatesGroup):
     D1 = State()
@@ -53,6 +61,7 @@ class Des(StatesGroup):
     D4 = State()
     D5 = State()
     D6 = State()
+    D7 = State()
 
 class Robo(StatesGroup):
     R1 = State()
@@ -64,6 +73,9 @@ class Robo(StatesGroup):
     R7 = State()
     R8 = State()
     R9 = State()
+    R10 = State()
+    R11 = State()
+    R12 = State()
 
 class Bio(StatesGroup):
     B1 = State()

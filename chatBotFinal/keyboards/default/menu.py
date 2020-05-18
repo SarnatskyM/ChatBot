@@ -153,3 +153,56 @@ answerButtonsPromDes = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
+answerButtonsAiro1 = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Из-за формы подъемной силы")
+        ],
+        [
+            KeyboardButton(text="Понятия не имею")
+        ],
+        [
+            KeyboardButton(text = "Из-за подъемной силы, на которую влияют тяга и форма крыла")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+answerButtonsAiro3 = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Да"),
+            KeyboardButton(text="Нет")
+        ],
+        [
+            KeyboardButton(text = "Я люблю работать один")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+answerButtonsAiroJoJo = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="ORA ORA ORA!!!!"),
+            KeyboardButton(text="Какёин")
+        ],
+        [
+            KeyboardButton(text = "Чиво?")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+answerButtonsAiro5 = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Да"),
+            KeyboardButton(text="Нет")
+        ],
+        [
+            KeyboardButton(text = "Да, я на него давно подписан!")
+        ]
+    ],
+    resize_keyboard=True
+)
