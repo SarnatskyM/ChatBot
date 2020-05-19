@@ -464,7 +464,7 @@ async def answer_i1(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer1=1)
     await message.answer("Вопрос №2. \n───────────────\n"
-                         "знаете, что такое C++ или Unity?")
+                         "Знаете, что такое C++ или Unity?")
     await Itkvant.next()
 
 
@@ -501,7 +501,7 @@ async def answer_i5(message: types.Message, state: FSMContext):
     if message.text == "1 вариант":
         await state.update_data(answer5=2)
     await message.answer("Вопрос №6.\n─────────────\n"
-                         "Что такое переменная, тип переменной и область видимости переменной?\n\n1.Да\n\n2.Ну почти\n\n3.Что то слышал\n\n4.Нет")
+                         "Знаете, что такое переменная, тип переменной и область видимости переменной?\n\n1.Да\n\n2.Ну почти\n\n3.Что то слышал\n\n4.Нет")
     await Itkvant.next()
 
 @dp.message_handler(state=Itkvant.I6)
@@ -564,7 +564,7 @@ async def answer_h2(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer2=1)
     await message.answer("Вопрос №3.\n────────────────\n"
-                         "Модно быть уже сейчас увлекаетесь обработкой разнообразных материалов : дерева, металла и других")
+                         "Может вы уже увлекаетесь обработкой разнообразных материалов : дерева, металла и других?")
     await Hitech.next()
 
 @dp.message_handler(state=Hitech.H3)
@@ -573,7 +573,7 @@ async def answer_h3(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer3=1)
     await message.answer("Вопрос №4.\n─────────────────\n"
-                         "Согласно ли беспрекословно соблюдать технику безопасности и ложить вещи на свои места ( если нет, вас могут отчислить из Квантума)")
+                         "Согласны ли беспрекословно соблюдать технику безопасности и ложить вещи на свои места ( если нет, вас могут отчислить из Квантума)?")
     await Hitech.next()
 
 @dp.message_handler(state=Hitech.H4)
@@ -581,59 +581,117 @@ async def answer_h4(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
         await state.update_data(answer4=1)
-    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
-    await message.answer("Вопрос №5.\n───────────────\n"
-                         "Обладаете ли вы навыками изобретательства и инженерии\n\n1.Даа!! Постоянно что-то придумаю и мастерю\n\n2.Нууу даа, немного\n\n3.Не мастерю, но идеи есть\n\n4.Неа", reply_markup = answerButtonsTestingForStasQuestHard)
+    await message.answer("Вопрос №5.\n─────────────────\n"
+                         "Известна ли вам хотя бы одна технология 3D-печати?")
     await Hitech.next()
 
 @dp.message_handler(state=Hitech.H5)
 async def answer_h5(message: types.Message, state: FSMContext):
-    if message.text == "1 вариант":
-        await state.update_data(answer5=3)
-    if message.text == "2 вариант":
-        await state.update_data(answer5=2)
-    if message.text == "3 вариант":
+    global answerUser
+    if message.text in answerUser:
         await state.update_data(answer5=1)
-    else:
-        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
-    #inmath
-    await message.answer("Вопрос №6.\n─────────────\n"
-                         "Умеешь ориентироваться в информационном пространстве и использовать техническую лит-ру для поиска сложных решений?\n\n1.Могу, умею, практикую\n\n2.Могу погуглить\n\n3.Возможно\n\n4.Наставник ведь всё знает")
+    await message.answer("Вопрос №6.\n─────────────────\n"
+                         "Создавали ли вы 3D-модель?")
     await Hitech.next()
 
 @dp.message_handler(state=Hitech.H6)
 async def answer_h6(message: types.Message, state: FSMContext):
-    if message.text == "1 вариант":
-        await state.update_data(answer6=3)
-    if message.text == "2 вариант":
-        await state.update_data(answer6=2)
-    if message.text == "3 вариант":
+    global answerUser
+    if message.text in answerUser:
         await state.update_data(answer6=1)
     await message.answer("Вопрос №7.\n─────────────────\n"
-                         "Какие типы фрез для фрезерного станка вам известны?\n\n1.Горизантальные, вертикальные\n\n2.Цилиндрические, дисковые\n\n3.Прямые, кривые",reply_markup= answerButtonsTesting)
+                         "Знаете ли вы разницу между векторной и растровой графикой?")
     await Hitech.next()
-
 
 @dp.message_handler(state=Hitech.H7)
 async def answer_h7(message: types.Message, state: FSMContext):
-    if message.text == "2 вариант":
-        await state.update_data(answer8=3)
-    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
-    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer7=1)
+    await message.answer("Вопрос №8.\n─────────────────\n"
+                         "Имеется ли аллергия на пыль?")
     await Hitech.next()
 
 @dp.message_handler(state=Hitech.H8)
 async def answer_h8(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer8=1)
+    await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
+    await message.answer("Вопрос №9.\n───────────────\n"
+                         "Вы случайно раздавили шнур от зарядного устройства телефона ножкой стула. От этого телефон перестал заряжаться. Что вы будете с этим делать?\n\n1.Попытаюсь починить и заизолировать\n\n2.Выкину в мусорку и куплю новый шнур в магазине\n\n3.Стащу у брата или сестру тайком", reply_markup = answerButtonsTesting)
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H9)
+async def answer_h9(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer5=2)
+    if message.text == "2 вариант":
+        await state.update_data(answer5=1)
+    else:
+        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
+    #inmath
+    await message.answer("Вопрос №10.\n─────────────\n"
+                         "Знаете ли вы другое применение лазера, кроме резки и гравировки?\n\n1.А еще можно светить в глаза летчикам самолетов\n\n2.Да. В рекламе видел, как лазером варили кофе и кузов машины\n\n3.У лазера множество применений")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H10)
+async def answer_h10(message: types.Message, state: FSMContext):
+    if message.text == "2 вариант":
+        await state.update_data(answer6=1)
+    if message.text == "3 вариант":
+        await state.update_data(answer6=2)
+    await message.answer("Вопрос №11.\n─────────────────\n"
+                         "У вас в 3D-ручке застраял пластик. Что вы будете с этим делать?\n\n1.Заменю ручку по гарантии\n\n2.Вскрою ручку и попробую исправить данную проблему\n\n3.Выкину и заставлю родителей купить новую")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H11)
+async def answer_h11(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer6=1)
+    if message.text == "2 вариант":
+        await state.update_data(answer6=2)
+    await message.answer("Вопрос №12.\n─────────────────\n"
+                         "Представьте, что вы уже в Хайтеке и к вам обратился кванторианец с просьбой найти колесо нестандартного диаметра, которого нет в кванториуме. Как вы ему поможете?\n\n1.Создадите модель и распечатаете на 3D-принтере\n\n2.Попросите переделать конструкцию так, чтобы обойтись имеющимися деталями\n\n3.Обратитесь к администрации докупить колеса?")
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H12)
+async def answer_h12(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer6=2)
+    if message.text == "2 вариант":
+        await state.update_data(answer6=1)
+    await message.answer("Вопрос №13.\n─────────────────\n"
+                         "Медиаквантум решил снять сюжет о Хайтеке. Будучи в группе Паши, что вы будете делать?\n\n1.Проведу экскурсию, расскажу об имеющемся оборудовании и продемонстрирую работу некоторых из них\n\n2.Не люблю светиться, боюсь камер, спрячусь в \"грязной зоне\" под большим фрезером\n\n3.Позову Пашу, наверняка он все лучше меня расскажет о направлении Хайтек")
+    await Hitech.next()
+
+
+@dp.message_handler(state=Hitech.H13)
+async def answer_h13(message: types.Message, state: FSMContext):
+    if message.text == "1 вариант":
+        await state.update_data(answer8=2)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    await Hitech.next()
+
+@dp.message_handler(state=Hitech.H14)
+async def answer_h14(message: types.Message, state: FSMContext):
     k = 0  
     data = await state.get_data()
-    answerM1 = data.get("answer1")
-    answerM2 = data.get("answer2")
-    answerM3 = data.get("answer3")
-    answerM4= data.get("answer4")
-    answerM5 = data.get("answer5")
-    answerM6 = data.get("answer6")
-    answerM7 = data.get("answer7")
-    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7]
+    answerH1 = data.get("answer1")
+    answerH2 = data.get("answer2")
+    answerH3 = data.get("answer3")
+    answerH4= data.get("answer4")
+    answerH5 = data.get("answer5")
+    answerH6 = data.get("answer6")
+    answerH7 = data.get("answer7")
+    answerH8 = data.get("answer8")
+    answerH9 = data.get("answer9")
+    answerH10 = data.get("answer10")
+    answerH11 = data.get("answer11")
+    answerH12 = data.get("answer12")
+    answerH13 = data.get("answer13")
+    ans=[answerH1, answerH2, answerH3, answerH4,answerH5,answerH6,answerH7,answerH8,answerH9,answerH10,answerH11,answerH12,answerH13]
     for item in ans:
         if item == 1:
             k += 1
@@ -641,7 +699,7 @@ async def answer_h8(message: types.Message, state: FSMContext):
             k += 2
         if item == 3:
             k += 3
-    await message.answer("Вам подходит направление Хайтек на - {0}% ".format(100*k//13), reply_markup=ReplyKeyboardRemove())
+    await message.answer("Вам подходит направление Хайтек на - {0}% ".format(100*k//18), reply_markup=ReplyKeyboardRemove())
     await message.answer("Вы уже закончили??")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_027.webp","rb")
     await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
@@ -709,7 +767,7 @@ async def answer_r7(message: types.Message, state: FSMContext):
         await state.update_data(answer7=1)
     await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
     await message.answer("Вопрос №8.\n───────────────\n"
-                         "Часто не бывает возможности во время кормить питомца. Что ты сделаешь?\n\n1.Сделаю автоматизированную кормушку и мой питомец всегда будет сыт во время\n\n2.Посмотрю в интернете как можно решить данную проблему, и последую совету\n\n3.Попрошу кого-нибудь, чтобы не забывали кормить", reply_markup = answerButtonsSoHardQuest)
+                         "Часто не бывает возможности во время кормить питомца. Что ты сделаешь?\n\n1.Сделаю автоматизированную кормушку и мой питомец всегда будет сыт во время\n\n2.Посмотрю в интернете как можно решить данную проблему, и последую совету\n\n3.Попрошу кого-нибудь, чтобы не забывали кормить", reply_markup = answerButtonsTesting)
     await Robo.next()
 
 @dp.message_handler(state=Robo.R8)
@@ -977,5 +1035,6 @@ async def answer_a17(message: types.Message, state: FSMContext):
             k += 5
     await message.answer("Вам подходит направление АэроКвантум на - {0}% ".format(100*k//49), reply_markup=ReplyKeyboardRemove())
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_006.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 

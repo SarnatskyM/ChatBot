@@ -32,21 +32,21 @@ direction_menu = ReplyKeyboardMarkup(
 direction_menu2 = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="•IT-Квантум"),
-            KeyboardButton(text="•Хайтек"),
-            KeyboardButton(text="•Аэроквантум")
+            KeyboardButton(text="-IT-Квантум"),
+            KeyboardButton(text="-Хайтек"),
+            KeyboardButton(text="-Аэроквантум")
         ],
         [
-            KeyboardButton(text="•Промышленный дизайн"),
-            KeyboardButton(text="•ПромРобоКвант"),
-            KeyboardButton(text="•Биоквантум")
+            KeyboardButton(text="-Промышленный дизайн"),
+            KeyboardButton(text="-ПромРобоКвант"),
+            KeyboardButton(text="-Биоквантум")
         ],
         [
-            KeyboardButton(text="•Инженерная математика"),
-            KeyboardButton(text="•Медиа")
+            KeyboardButton(text="-Инженерная математика"),
+            KeyboardButton(text="-Медиа")
         ],
         [
-            KeyboardButton(text="•Назад")
+            KeyboardButton(text="Назад")
         ]
     ],
     resize_keyboard=True
