@@ -1123,3 +1123,4 @@ async def answer_b8(message: types.Message, state: FSMContext):
     await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 
+

@@ -1,10 +1,13 @@
 #Основные файлы
-Файл запуска - app.py
-Токен бота и админский айди(мало ли понадобится) - config.py
-Логи подключения - loader
+Файл запуска - main.py
+Токен бота  - config.py
+Логи подключения - loader.py
 
 #Обработчик сообщений 
-Находится  - \chatBotFinal\handlers\users\testing.py
+Находится  - chatBotFinal\handlers\users\testing.py
 
 #Машина состояний для команды /test
-Находится - \chatBotFinal\states\test.py
+Находится - chatBotFinal\states\test.py
+
+#Клавиатура бота
+Находится - chatBotFinal\keyboards\default\menu.py
