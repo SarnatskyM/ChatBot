@@ -102,7 +102,8 @@ async def enter_test(message: types.Message):
         "Пробовал ли ты уже программировать?", reply_markup= answerButtons)
         await Robo.R1.set()
     if message.text == "Биоквантум":
-        await message.answer("6")
+        await message.answer("Вопрос №1. \n───────────────\n"
+        "Ты интересуешься биологией?", reply_markup = answerButtons)
         await Bio.B1.set()
     if message.text == "Инженерная математика":
         await message.answer("Вопрос №1. \n───────────────\n"
@@ -859,7 +860,7 @@ async def answer_a2(message: types.Message, state: FSMContext):
     if message.text == "50/50":
         await state.update_data(answer2=1)
     await message.answer("Вопрос №3.\n────────────────\n"
-                         "Ты хочешь найти Себе крутую команду единомышленников и друзей?", reply_markup= answerButtonsAiro3)
+                         "Ты хочешь найти себе крутую команду единомышленников и друзей?", reply_markup= answerButtonsAiro3)
     await Airo.next()
 
 @dp.message_handler(state=Airo.A3)
@@ -1035,6 +1036,90 @@ async def answer_a17(message: types.Message, state: FSMContext):
             k += 5
     await message.answer("Вам подходит направление АэроКвантум на - {0}% ".format(100*k//49), reply_markup=ReplyKeyboardRemove())
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_006.webp","rb")
+    await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
+    await state.finish()
+
+
+@dp.message_handler(state=Bio.B1)
+async def answer_b1(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer1=1)
+    await message.answer("Вопрос №2. \n───────────────\n"
+                         "Хочешь узнать, есть ли жизнь в луже и какая она?")
+    await Bio.next()
+
+
+@dp.message_handler(state=Bio.B2)
+async def answer_b2(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer2=1)
+    await message.answer("Вопрос №3.\n────────────────\n"
+                         "Тебе интересно, как работает микроскоп?")
+    await Bio.next()
+
+@dp.message_handler(state=Bio.B3)
+async def answer_b3(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer3=1)
+    await message.answer("Вопрос №4.\n─────────────────\n"
+                         "Тебе интересно, что обитает у тебя на руках?")
+    await Bio.next()
+
+@dp.message_handler(state=Bio.B4)
+async def answer_b4(message: types.Message, state: FSMContext):
+    global answerUser
+    if message.text in answerUser:
+        await state.update_data(answer4=1)
+    await message.answer("Вопрос №5.\n───────────────\n"
+                         "Ты хочешь узнать, как получается сметана?")
+    await Bio.next()
+
+@dp.message_handler(state=Bio.B5)
+async def answer_b5(message: types.Message, state: FSMContext):
+    if message.text in answerUser:
+        await state.update_data(answer5=1)
+    #inmath
+    await message.answer("Вопрос №6.\n─────────────\n"
+                         "Тебе интересна генетика?")
+    await Bio.next()
+
+@dp.message_handler(state=Bio.B6)
+async def answer_b6(message: types.Message, state: FSMContext):
+    if message.text in answerUser:
+        await state.update_data(answer6=1)
+    await message.answer("Вопрос №7.\n─────────────────\n"
+                         "Тебе интересна микробиология?")
+    await Bio.next()
+
+
+@dp.message_handler(state=Bio.B7)
+async def answer_b7(message: types.Message, state: FSMContext):
+    if message.text in answerUser:
+        await state.update_data(answer7=1)
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")
+    await message.answer("Готовы получить ответ?", reply_markup = answerButtonsAfterTest)
+    await Bio.next()
+
+@dp.message_handler(state=Bio.B8)
+async def answer_b8(message: types.Message, state: FSMContext):
+    k = 0  
+    data = await state.get_data()
+    answerM1 = data.get("answer1")
+    answerM2 = data.get("answer2")
+    answerM3 = data.get("answer3")
+    answerM4= data.get("answer4")
+    answerM5 = data.get("answer5")
+    answerM6 = data.get("answer6")
+    answerM7 = data.get("answer7")
+    ans=[answerM1, answerM2, answerM3, answerM4,answerM5,answerM6,answerM7]
+    for item in ans:
+        if item == 1:
+            k += 1
+    await message.answer("Вам подходит направление БиоКвантум на - {0}% ".format(100*k//7), reply_markup= ReplyKeyboardRemove())
+    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_3_ENG/LINE_Menhera_chan_3_ENG_032.webp","rb")
     await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
 

@@ -92,7 +92,6 @@ class Bio(StatesGroup):
     B6 = State()
     B7 = State()
     B8 = State()
-    B9 = State()
 
 class Math(StatesGroup):
     M1 = State()
