@@ -1,5 +1,6 @@
 #Основной файл(файл запуска)
 from loader import bot, storage
+import __future__
 
 
 async def on_shutdown(dp):

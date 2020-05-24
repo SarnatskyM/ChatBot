@@ -12,8 +12,7 @@ class Media(StatesGroup):
     Q7 = State()
     Q8 = State()
     Q9 = State()
-    Q0 = State()
-
+    Q10 = State()
 
 class Itkvant(StatesGroup):
     I1 = State()
