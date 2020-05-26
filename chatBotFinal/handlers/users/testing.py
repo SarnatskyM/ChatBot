@@ -10,57 +10,38 @@ from states.test import Media,Itkvant,Hitech,Airo,Robo,Bio,Math,Des
 
 answerUser =["Да","да","yes","Yes", "Да ", "да "]
 answerUserNo =["Нет", "нет","не","НЕТ","Нет ","нет ","no ","NO","No"]
-    
-@dp.message_handler(commands=['start'])
-async def process_start_command(message: types.Message):
-    await message.reply(hello_User, reply_markup=menu)
-    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_007.webp", "rb")
 
-@dp.message_handler(commands=['help'])
-async def process_help_command(message: types.Message):
-    await message.reply(helpForUser, reply_markup=ReplyKeyboardRemove())
-    await message.answer("Мои команды /kvant, /directions, /test", reply_markup=menu)
-    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_025.webp", "rb")
+#handler commands
+@dp.message_handler(commands=['start','help','kvant','directions','test'])
+async def process_start_commands(message: types.Message):
+    if message.text == "/start":
+        await message.reply(hello_User, reply_markup=menu)
+        await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_007.webp", "rb")
+    elif message.text == "/help":
+        await message.reply(helpForUser, reply_markup=ReplyKeyboardRemove())
+        await message.answer("Мои команды /kvant, /directions, /test", reply_markup=menu)
+        await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_025.webp", "rb")
+    elif message.text == "/kvant":
+        await message.answer(info_aboutKvant, parse_mode="HTML")
+    elif message.text == "/directions":
+        await message.reply(text = '''<b>Выберите одно из направлений и я вам дам информацию о нем!</b>''' , reply_markup=direction_menu2, parse_mode="HTML")
+    else:
+        await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_006.webp", "rb", reply_markup=direction_menu)
+        await message.answer("Выберите направления по которому хотите пройти тест!")
 
-@dp.message_handler(commands=['kvant'])
-async def process_kvant_command(message: types.Message):
-    await message.answer(info_aboutKvant, parse_mode="HTML")
-    
-@dp.message_handler(commands=['directions'])
-async def process_directions_commnad(message: types.Message):
-	await message.reply(
-			text = '''
-			<b>Выберите одно из направлений и я вам дам информацию о нем!</b>
-			''' , reply_markup=direction_menu2, parse_mode="HTML"
-		)
 
-@dp.message_handler(Text(equals=["-IT-Квантум","-Хайтек","-Аэроквантум","-Промышленный дизайн","-ПромРобоКвант","-Биоквантум","-Инженерная математика","-Медиа","Назад"]))
-async def get_infoD(message: Message):
-    direct = {
-     info_itkvant : "-IT-Квантум",
-     info_hitech : "-Хайтек",
-     info_airkvant : "-Аэроквантум",
-     info_promdesign : "-Промышленный дизайн",
-     info_promrobokvant : "-ПромРобоКвант",
-     info_biokvant : "-Биоквантум",
-     info_inmath : "-Инженерная математика",
-     info_media : "-Медиа",
-     info_back : "Назад",
-    }
-    for key , val in direct.items():
-        if message.text == val:
-            await message.answer(key,parse_mode="HTML")
+#ответы на /directions и ссылка на сайт
+@dp.message_handler(Text(equals=["-IT-Квантум","-Хайтек","-Аэроквантум","-Промышленный дизайн","-ПромРобоКвант","-Биоквантум","-Инженерная математика","-Медиа","Назад","Сайт Кванториума!"]))
+async def get_infoDirOrWeb(message: Message):
+    if message.text == "Сайт Кванториума!":
+        await message.answer("Всю дополнительную информацию о направления можно посмотреть на сайте https://kvantorium15.ru/")
+    else:
+        direct = {info_itkvant : "-IT-Квантум",info_hitech : "-Хайтек",info_airkvant : "-Аэроквантум",info_promdesign : "-Промышленный дизайн",info_promrobokvant : "-ПромРобоКвант",info_biokvant : "-Биоквантум",info_inmath : "-Инженерная математика",info_media : "-Медиа",info_back : "Назад",}
+        for key , val in direct.items():
+            if message.text == val:
+                await message.answer(key,parse_mode="HTML")
 
-@dp.message_handler(Text(equals=["Сайт Кванториума!"]))
-async def get_web(message: Message):
-    await message.answer("Всю дополнительную информацию о направления можно посмотреть на сайте https://kvantorium15.ru/")
-
-@dp.message_handler(Command("test"))
-async def choice_test(message: types.Message):
-    #it-kvant
-    await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_006.webp", "rb", reply_markup=direction_menu)
-    await message.answer("Выберите направления по которому хотите пройти тест!")
-
+#Начало теста. Определение теста (есть картинка отражающая данную функцию)
 @dp.message_handler(state =None)
 async def enter_test(message: types.Message):
     if message.text == "Медиа":
@@ -132,22 +113,16 @@ async def answer_q4(message: types.Message, state: FSMContext):
         await state.update_data(answer4=1)
     await message.answer("Теперь я задам вопросы посерьезнее. Выбери один вариант ответа!")
     await message.answer("<b>Вопрос №5.\n───────────────\n</b>"
-                         "Тебе предложили снять видеообзор на любимую игру. Для тебя это\n\n\n1.Круто! Это может стать началом моего блога об играх.\n\n2.Будет сложновато придумать, о чём рассказывать, но интересно попробовать.\n\n3.Неинтересно. Лучше потрачу это время на то, чтобы научиться делать игры самому!", reply_markup=answerButtonsTesting, parse_mode="HTML")
+                         "Тебе предложили снять видеообзор на любимую игру. Для тебя это\n\n1.Круто! Это может стать началом моего блога об играх.\n\n2.Будет сложновато придумать, о чём рассказывать, но интересно попробовать.\n\n3.Неинтересно. Лучше потрачу это время на то, чтобы научиться делать игры самому!", reply_markup=answerButtonsTesting, parse_mode="HTML")
     await Media.next()
 
 @dp.message_handler(state=Media.Q5)
 async def answer_q5(message: types.Message, state: FSMContext):
-    if message.text == "1 вариант":
-        await state.update_data(answer5=2)
-    if message.text == "2 вариант":
+    global answerUser
+    if message.text in answerUser:
         await state.update_data(answer5=1)
-    if message.text == "3 вариант":
-        await state.update_data(answer5=0)
-    else:
-        await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
-    #inmath
     await message.answer("<b>Вопрос №6.\n─────────────\n</b>"
-                         "У вас во дворе собака родила щенят. Нужно найти для них хозяев. Что ты для этого сделаешь?\n\n\n1.Заберут щенков или нет - неизвестно. Лучше пока сделаю для них хорошую будку со встроенным дозатором корма\n\n2.Напишу волонтёрам, которые работают с бездомными животными. Они-то наверняка знают, что делать с щенками!\n\n3.Сделаю такие фотографии этих пёселей, чтобы всем сразу хотелось их взять домой. Выложу фото в соцсетях и попрошу всех, кто может, сделать репосты.", parse_mode="HTML")
+                         "У вас во дворе собака родила щенят. Нужно найти для них хозяев. Что ты для этого сделаешь?\n\n1.Заберут щенков или нет - неизвестно. Лучше пока сделаю для них хорошую будку со встроенным дозатором корма\n\n2.Напишу волонтёрам, которые работают с бездомными животными. Они-то наверняка знают, что делать с щенками!\n\n3.Сделаю такие фотографии этих пёселей, чтобы всем сразу хотелось их взять домой. Выложу фото в соцсетях и попрошу всех, кто может, сделать репосты.", parse_mode="HTML")
     await Media.next()
 
 @dp.message_handler(state=Media.Q6)
@@ -159,7 +134,7 @@ async def answer_q6(message: types.Message, state: FSMContext):
     if message.text == "3 вариант":
         await state.update_data(answer6=2)
     await message.answer("<b>Вопрос №7.\n─────────────\n</b>"
-                         "Друзья решили запустить паблик в Вконтакте и пригласили тебя присоединиться. Чем будешь помогать?\n\n\n1.Может быть буду репостить у себя их мемы и комментить интересные посты. Создам активность подписчиков.\n\n2.Кто-то сказал мемы? Я в этом шарю! Буду делать публикации, которые станут собирать тысячи лайков.\n\n3.Сделаю такие фотографии этих пёселей, чтобы всем сразу хотелось их взять домой. Выложу фото в соцсетях и попрошу всех, кто может, сделать репосты.", parse_mode="HTML")
+                         "Друзья решили запустить паблик в Вконтакте и пригласили тебя присоединиться. Чем будешь помогать?\n\n\n1.Может быть буду репостить у себя их мемы и комментить интересные посты. Создам активность подписчиков.\n\n2.Кто-то сказал мемы? Я в этом шарю! Буду делать публикации, которые станут собирать тысячи лайков.\n\n3.Помогу друзьям поставить нужный софт и настроить дистанционную коммуникацию. Общие папки, удобные мессенджеры, приложения для редактирования текстов и картинок - настроить коммуникацию важно, чтобы паблик был успешным.", parse_mode="HTML")
     await Media.next()
 
 @dp.message_handler(state=Media.Q7)
@@ -205,16 +180,17 @@ async def answer_q0(message: types.Message, state: FSMContext):
     ans = [data.get(f"answer{n}") for n in range(len(data))]
     for item in ans:
         if item == 1:
-            k+=1
+            k +=1
         elif item == 2:
-            k+=2
-        elif item ==3:
-            k+=3
+            k += 2
+        elif item == 3:
+            k+= 3
     await message.answer("Вам подходит направление Медиа на - {0}% ".format(100*k//12), reply_markup=ReplyKeyboardRemove())
     await message.answer("Удачи вам!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_031.webp","rb")
     await message.answer("Для повторного прохождения напиште \"/test\" или \"/help\"")
     await state.finish()
+
 
 @dp.message_handler(state=Math.M1)
 async def answer_a1(message: types.Message, state: FSMContext):
@@ -336,8 +312,6 @@ async def answer_m12(message: types.Message, state: FSMContext):
             k += 5
         if item == 10:
             k += 10
-        if item == 0:
-            k += 0
         if item == -20:
             k -= 20
     await message.answer("Вам подходит направление Инженерная математика на - {0}% ".format(100*k//80), reply_markup=ReplyKeyboardRemove())
@@ -585,7 +559,6 @@ async def answer_h9(message: types.Message, state: FSMContext):
         await state.update_data(answer5=1)
     else:
         await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
-    #inmath
     await message.answer("<b>Вопрос №10.\n─────────────\n</b>"
                          "Знаете ли вы другое применение лазера, кроме резки и гравировки?\n\n1.А еще можно светить в глаза летчикам самолетов\n\n2.Да. В рекламе видел, как лазером варили кофе и кузов машины\n\n3.У лазера множество применений", parse_mode="HTML")
     await Hitech.next()
@@ -720,7 +693,6 @@ async def answer_r8(message: types.Message, state: FSMContext):
         await state.update_data(answer8=1)
     else:
         await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
-    #inmath
     await message.answer("<b>Вопрос №9.\n─────────────\n</b>"
                          "Тебе предлжили учавствовать в гонке роботов\n\n1.Лучше я пойду нарисую робота\n\n2.Сложнова то наверное. Но я попробую\n\n3.СУПЕР! Сделаю своего робота и поучавствую в соревнованиях", parse_mode="HTML")
     await Robo.next()
@@ -849,7 +821,7 @@ async def answer_a7(message: types.Message, state: FSMContext):
 async def answer_a8(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
-        await state.update_data(answer8=3)
+        await state.update_data(answer8=1)
     await message.answer("<b>Вопрос №9.\n─────────────\n</b>"
                          "Пробовал ли ты уже программировать?", parse_mode="HTML")
     await Airo.next()
@@ -879,7 +851,6 @@ async def answer_a11(message: types.Message, state: FSMContext):
         await state.update_data(answer11=5)
     else:
         await message.answer("Отвечайте правильно, пожалуйста. Надо выбрать вариант ответа!")
-    #inmath
     await message.answer("<b>Вопрос №12.\n─────────────\n</b>"
                          "<b>JoJo?</b>", reply_markup = answerButtonsAiroJoJo, parse_mode="HTML")
     await Airo.next()
@@ -993,15 +964,16 @@ async def answer_b4(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Bio.B5)
 async def answer_b5(message: types.Message, state: FSMContext):
+    global answerUser
     if message.text in answerUser:
         await state.update_data(answer5=1)
-    #inmath
     await message.answer("<b>Вопрос №6.\n─────────────\n</b>"
                          "Тебе интересна генетика?", parse_mode="HTML")
     await Bio.next()
 
 @dp.message_handler(state=Bio.B6)
 async def answer_b6(message: types.Message, state: FSMContext):
+    global answerUser
     if message.text in answerUser:
         await state.update_data(answer6=1)
     await message.answer("<b>Вопрос №7.\n─────────────\n</b>"
@@ -1011,6 +983,7 @@ async def answer_b6(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Bio.B7)
 async def answer_b7(message: types.Message, state: FSMContext):
+    global answerUser
     if message.text in answerUser:
         await state.update_data(answer7=1)
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_005.webp", "rb")

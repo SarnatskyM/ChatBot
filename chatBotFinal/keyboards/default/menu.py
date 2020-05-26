@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
+
 menu = ReplyKeyboardMarkup(
     keyboard=[
         [
@@ -53,7 +54,7 @@ direction_menu2 = ReplyKeyboardMarkup(
 )
 
 
-answerButtons = ReplyKeyboardMarkup(
+answerButtons = ReplyKeyboardMarkup(    #key = 0
     keyboard=[
             [
                 KeyboardButton(text="Да"),
@@ -63,7 +64,7 @@ answerButtons = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsTesting = ReplyKeyboardMarkup(
+answerButtonsTesting = ReplyKeyboardMarkup(   # key = 1
     keyboard=[
             [
                 KeyboardButton(text="1 вариант"),
@@ -76,7 +77,7 @@ answerButtonsTesting = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsTestingForStasQuestHard = ReplyKeyboardMarkup(
+answerButtonsTestingForStasQuestHard = ReplyKeyboardMarkup(    # key = 2
     keyboard=[
             [
                 KeyboardButton(text="1 вариант"),
@@ -90,7 +91,7 @@ answerButtonsTestingForStasQuestHard = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsTestingForStasQuest=ReplyKeyboardMarkup(
+answerButtonsTestingForStasQuest=ReplyKeyboardMarkup(    # key = 3
     keyboard=[
         [
           KeyboardButton(text="Да"),
@@ -103,7 +104,7 @@ answerButtonsTestingForStasQuest=ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsTestingForStasQuest2 = ReplyKeyboardMarkup(
+answerButtonsTestingForStasQuest2 = ReplyKeyboardMarkup(   # key = 4
     keyboard=[
         [
             KeyboardButton(text="Да. Я их постоянно учу, очень полезно их запоминать."),
@@ -118,7 +119,7 @@ answerButtonsTestingForStasQuest2 = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsAfterTest = ReplyKeyboardMarkup(
+answerButtonsAfterTest = ReplyKeyboardMarkup(  
     keyboard=[
             [
                 KeyboardButton(text="Да!!!!!!!!!!")
@@ -127,7 +128,7 @@ answerButtonsAfterTest = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsSoHardQuest = ReplyKeyboardMarkup(
+answerButtonsSoHardQuest = ReplyKeyboardMarkup(  # key = 5
     keyboard=[
         [
             KeyboardButton(text="Да"),
@@ -141,7 +142,7 @@ answerButtonsSoHardQuest = ReplyKeyboardMarkup(
 )
 
 
-answerButtonsPromDes = ReplyKeyboardMarkup(
+answerButtonsPromDes = ReplyKeyboardMarkup(    # key = 6
     keyboard=[
         [
             KeyboardButton(text="1.Буду смотреть техническую начинку( емкость батареи, оперативку, функции и до.)")
@@ -153,7 +154,7 @@ answerButtonsPromDes = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsAiro1 = ReplyKeyboardMarkup(
+answerButtonsAiro1 = ReplyKeyboardMarkup(   #key = 8
     keyboard=[
         [
             KeyboardButton(text="Из-за формы подъемной силы")
@@ -168,7 +169,7 @@ answerButtonsAiro1 = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsAiro3 = ReplyKeyboardMarkup(
+answerButtonsAiro3 = ReplyKeyboardMarkup(    #key = 9
     keyboard=[
         [
             KeyboardButton(text="Да"),
@@ -181,7 +182,7 @@ answerButtonsAiro3 = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsAiroJoJo = ReplyKeyboardMarkup(
+answerButtonsAiroJoJo = ReplyKeyboardMarkup(   #key = 10
     keyboard=[
         [
             KeyboardButton(text="ORA ORA ORA!!!!"),
@@ -194,7 +195,7 @@ answerButtonsAiroJoJo = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-answerButtonsAiro5 = ReplyKeyboardMarkup(
+answerButtonsAiro5 = ReplyKeyboardMarkup(  #key = 11
     keyboard=[
         [
             KeyboardButton(text="Да"),
