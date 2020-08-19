@@ -24,7 +24,7 @@ pylint==2.4.4
 pyOpenSSL==19.1.0
 pyTelegramBotAPI==3.6.7
 pytz==2019.3
-requests==2.7.0
+requests==2.20.0
 service-identity==18.1.0
 six==1.14.0
 telebot==0.0.3
