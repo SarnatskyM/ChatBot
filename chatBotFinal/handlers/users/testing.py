@@ -8,6 +8,7 @@ from .questions import *
 from loader import dp
 from states.test import Media,Itkvant,Hitech,Airo,Robo,Bio,Math,Des
 
+
 #handler commands
 @dp.message_handler(commands=['start','help','kvant','directions','test'])
 async def process_start_commands(message: types.Message):
