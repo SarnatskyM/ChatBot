@@ -166,7 +166,7 @@ async def answer_q0(message: types.Message, state: FSMContext):
             k += 2
         elif item == 3:
             k+= 3
-    await message.answer("Вам подходит направление Медиа на - {0}% ".format(100*k//12), reply_markup=ReplyKeyboardRemove())
+    await message.answer("Вам подходит направление Медиа на - {0}% ".format(100*k//14), reply_markup=ReplyKeyboardRemove())
     await message.answer("Удачи вам!")
     await message.answer_sticker("https://chpic.su/_data/stickers/l/LINE_Menhera_chan_ENG/LINE_Menhera_chan_ENG_031.webp","rb")
     await message.answer(infoAboutCommand)
@@ -570,7 +570,7 @@ async def answer_h14(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Robo.R1)
 async def answer_r1(message: types.Message, state: FSMContext):
     global answerUser
-    if message.text in answerUser:
+    if message.text in answerUserNo:
         await state.update_data(answer1=1)
     await message.answer("<b>Вопрос №2. \n───────────────\n</b>" + R[1], parse_mode="HTML")
     await Robo.next()
@@ -619,7 +619,7 @@ async def answer_r6(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Robo.R7)
 async def answer_r7(message: types.Message, state: FSMContext):
     global answerUser
-    if message.text in answerUser:
+    if message.text in answerUserNo:
         await state.update_data(answer7=1)
     await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
     await message.answer("<b>Вопрос №8.\n─────────────\n</b>" + R[7], reply_markup = answerButtonsTesting, parse_mode="HTML")
@@ -685,7 +685,7 @@ async def answer_a0(message: types.Message, state: FSMContext):
     if message.text == "3.Из-за подъемной силы, на которую влияют тяга и форма крыла":
         await state.update_data(answer1=3)
     if message.text == "1.Из-за формы подъемной силы":
-        await state.update_data(answer1=1)
+        await state.update_data(answer1=2)
     await message.answer("<b>Вопрос №2. \n───────────────\n</b>" + A[1], reply_markup = answerButtonsTestingForStasQuest, parse_mode="HTML")
     await Airo.next()
 
@@ -696,7 +696,7 @@ async def answer_a2(message: types.Message, state: FSMContext):
     if message.text in answerUserNo:
         await state.update_data(answer2=3)
     if message.text == "50/50":
-        await state.update_data(answer2=1)
+        await state.update_data(answer2=2)
     await message.answer("<b>Вопрос №3.\n────────────────\n</b>" + A[2], reply_markup= answerButtonsAiro3, parse_mode="HTML")
     await Airo.next()
 
@@ -706,7 +706,7 @@ async def answer_a3(message: types.Message, state: FSMContext):
     if message.text in answerUser:
         await state.update_data(answer3=3)
     if message.text == "Я люблю работать один":
-        await state.update_data(answer3= 1)
+        await state.update_data(answer3= 2)
     await message.answer("<b>Вопрос №4.\n─────────────────\n</b>" + A[3], reply_markup = answerButtons, parse_mode="HTML")
     await Airo.next()
 
@@ -730,7 +730,7 @@ async def answer_a5(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Airo.A6)
 async def answer_a6(message: types.Message, state: FSMContext):
     if message.text == "1 вариант":
-        await state.update_data(answer6=1)
+        await state.update_data(answer6=2)
     if message.text == "2 вариант":
         await state.update_data(answer6=3)
     await message.answer("<b>Вопрос №7.\n─────────────\n</b>" + A[6], parse_mode="HTML")
@@ -741,7 +741,7 @@ async def answer_a7(message: types.Message, state: FSMContext):
     if message.text == "1 вариант":
         await state.update_data(answer7=3)
     if message.text == "3 вариант":
-        await state.update_data(answer7=1)
+        await state.update_data(answer7=2)
     await message.answer("<b>Вопрос №8.\n─────────────\n</b>" + A[7], reply_markup = answerButtons, parse_mode="HTML")
     await Airo.next()
 
@@ -749,7 +749,7 @@ async def answer_a7(message: types.Message, state: FSMContext):
 async def answer_a8(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
-        await state.update_data(answer8=1)
+        await state.update_data(answer8=2)
     await message.answer("<b>Вопрос №9.\n─────────────\n</b>" + A[8], parse_mode="HTML")
     await Airo.next()
 
@@ -765,7 +765,7 @@ async def answer_a9(message: types.Message, state: FSMContext):
 async def answer_a10(message: types.Message, state: FSMContext):
     global answerUser
     if message.text in answerUser:
-        await state.update_data(answer10=1)
+        await state.update_data(answer10=2)
     await message.answer("Теперь я задам вопросы посерьезнее. Ответом будет являться вариант ответа!")
     await message.answer("<b>Вопрос №11.\n─────────────\n</b>" + A[10], reply_markup = answerButtonsTesting, parse_mode="HTML")
     await Airo.next()
@@ -786,7 +786,7 @@ async def answer_a12(message: types.Message, state: FSMContext):
     if message.text == "Какёин":
         await state.update_data(answer12=3)
     if message.text == "Чиво?":
-        await state.update_data(answer12=1)
+        await state.update_data(answer12=2)
     await message.answer("<b>Вопрос №13.\n─────────────\n</b>" + A[12], reply_markup= answerButtonsTesting, parse_mode="HTML")
     await Airo.next()
 
@@ -807,11 +807,11 @@ async def answer_a14(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Airo.A15)
 async def answer_a15(message: types.Message, state: FSMContext):
     if message.text == "2 вариант":
-        await state.update_data(answer15=1)
+        await state.update_data(answer15=2)
     if message.text == "3 вариант":
         await state.update_data(answer15=3)
     if message.text == "1 вариант":
-        await state.update_data(answer15=1)
+        await state.update_data(answer15=2)
     await message.answer("<b>Вопрос №16.\n─────────────────\n</b>" + A[15], parse_mode="HTML")
     await Airo.next()
 
