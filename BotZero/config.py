@@ -1,2 +1,2 @@
-TOKEN = '1079801674:AAFcnNfY2j7Xq05flB6gLQbKU4heWvkilPE'
-admin_id = 899845477
+TOKEN = ''
+admin_id = 
